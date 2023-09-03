@@ -18,6 +18,7 @@ function startGame(){
 
 function reset(){
     clearSquares();
+    deckPosition = 0;
     deck = [];
     startGame();
 }
@@ -34,21 +35,28 @@ function clearSquares(){
     }
 }
 
-function flipCards(){
+function flipCards(direction){
     
-    if(deck.length){
-        clearSquares();
-        var c1 = deck.shift();
-        var c2 = deck.shift();
-        
-        fillShape(1, cards[c1]);
-        fillShape(2, cards[c2]);
-        updateDeckCount();
-    }
-    else
+    
+    if(direction = "next" && deck.length)    
+        deckPosition += 2;
+    else{
         alert("deck is empty!");
-    
+        return;
+    }
+    if(direction = "back" && deckPosition >= 2)
+        deckPosition -= 2;
+    else{
+        alert("already at beginning of deck!");
+        return;
+    }
+
+    clearSquares();
+    fillShape(1, cards[deckPosition]);
+    fillShape(2, cards[deckPosition+1]);
+    updateDeckCount();    
 }
+var deckPosition = 0;
 var deck = [];
 startGame();
 
