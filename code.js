@@ -5,7 +5,7 @@ function fillShape(slot, coords){
 }
 
 function fillSquare(slot, x,y){
-    document.getElementById('shape-0'+slot).querySelector("tr:nth-child("+x+")").querySelector("td:nth-child("+y+")").classList.add("filled-"+slot);
+    document.getElementById('card-'+slot).querySelector("tr:nth-child("+x+")").querySelector("td:nth-child("+y+")").classList.add("filled-"+slot);
 }
 
 function startGame(){
@@ -28,14 +28,14 @@ function updateScreen(){
     //document.getElementById("deckPosition").innerText = deckPosition;
     clearSquares();
     if(topOfDeck >= 2){
-        fillShape(1,cards[deck[topOfDeck]]);
-        fillShape(2,cards[deck[topOfDeck+1]]);
+        fillShape(0,cards[deck[topOfDeck]]);
+        fillShape(1,cards[deck[topOfDeck+1]]);
     }
 }
 
 function clearSquares(){
-    for(var slot = 1; slot <= 2; slot++){
-        var myTable = document.getElementById('shape-0'+slot).getElementsByTagName("*");
+    for(var slot = 0; slot < 2; slot++){
+        var myTable = document.getElementById('card-'+slot).getElementsByTagName("*");
         for (elements of myTable)
             elements.classList.remove('filled-'+slot);
     }
