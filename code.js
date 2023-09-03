@@ -38,13 +38,13 @@ function clearSquares(){
 function flipCards(direction){
     
     
-    if(direction = "next" && deck.length)    
+    if(direction == "next" && deck.length)    
         deckPosition += 2;
     else{
         alert("deck is empty!");
         return;
     }
-    if(direction = "back" && deckPosition >= 2)
+    if(direction == "back" && deckPosition >= 2)
         deckPosition -= 2;
     else{
         alert("already at beginning of deck!");
