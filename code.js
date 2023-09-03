@@ -25,12 +25,14 @@ function reset(){
 
 function updateScreen(){
     document.getElementById("remain").innerText = 40 - topOfDeck;
-    //document.getElementById("deckPosition").innerText = deckPosition;
+    document.getElementById("topOfDeck").innerText = topOfDeck;
+    
     clearSquares();
     if(topOfDeck >= 2){
-        fillShape(0,cards[deck[topOfDeck]]);
-        fillShape(1,cards[deck[topOfDeck+1]]);
+        fillShape(0,cards[deck[topOfDeck-2]]);
+        fillShape(1,cards[deck[topOfDeck-1]]);
     }
+
 }
 
 function clearSquares(){
