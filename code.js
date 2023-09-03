@@ -13,24 +13,24 @@ function startGame(){
         deck.push(i);
     }
     deck = shuffle(deck);
-    alert(deck);
     updateScreen();
 }
 
 function reset(){
     clearSquares();
-    deckPosition = 0;
+    topOfDeck = 0;
     deck = [];
     startGame();
 }
 
 function updateScreen(){
-    document.getElementById("remain").innerText = 38 - deckPosition;
+    document.getElementById("remain").innerText = 40 - topOfDeck;
     //document.getElementById("deckPosition").innerText = deckPosition;
     clearSquares();
-    fillShape(1,cards[deck[deckPosition]]);
-    fillShape(2,cards[deck[deckPosition+1]]);
-
+    if(topOfDeck >= 2){
+        fillShape(1,cards[deck[topOfDeck]]);
+        fillShape(2,cards[deck[topOfDeck+1]]);
+    }
 }
 
 function clearSquares(){
@@ -44,16 +44,16 @@ function clearSquares(){
 function flipCards(direction){
     
     if (direction == 'forward'){
-        if(deckPosition == 38)
+        if(topOfDeck == 40)
             alert("deck is empty!");
         else
-            deckPosition +=2;
+            topOfDeck +=2;
     }        
     else if(direction == "previous"){
-        if(deckPosition == 0 )
-            alert("already at beginning of deck!");
+        if(topOfDeck == 0 )
+            alert("already reset deck!");
         else
-            deckPosition -= 2;
+            topOfDeck -= 2;
     }
  
     updateScreen();   
