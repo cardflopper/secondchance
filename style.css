@@ -1,13 +1,24 @@
+html{text-align:center;}
+button{font-size:2em}
+
 table{
     border:1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
 }
 
 
 td{
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
 }
-.filled{
-    border:1px solid black;
+.filled-1{
+    border:2px solid black;
     background-color:red;
+}
+
+.filled-2{
+    border:2px solid black;
+    background-color:green;
 }

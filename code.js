@@ -5,7 +5,7 @@ function fillShape(slot, coords){
 }
 
 function fillSquare(slot, x,y){
-    document.getElementById('shape-0'+slot).querySelector("tr:nth-child("+x+")").querySelector("td:nth-child("+y+")").classList.add("filled");
+    document.getElementById('shape-0'+slot).querySelector("tr:nth-child("+x+")").querySelector("td:nth-child("+y+")").classList.add("filled-"+slot);
 }
 
 function startGame(){
@@ -16,19 +16,22 @@ function startGame(){
     updateDeckCount();
 }
 
+function reset(){
+    clearSquares();
+    deck = [];
+    startGame();
+}
+
 function updateDeckCount(){
     document.getElementById("remain").innerText = deck.length;
 }
 
 function clearSquares(){
-    
-    var myTable1 = document.getElementById('shape-01').getElementsByTagName("*");
-    for (elements of myTable1)
-        elements.classList.remove('filled');
-    
-    var myTable2 = document.getElementById('shape-02').getElementsByTagName("*");
-    for (elements of myTable2)
-        elements.classList.remove('filled');
+    for(var slot = 1; slot <= 2; slot++){
+        var myTable = document.getElementById('shape-0'+slot).getElementsByTagName("*");
+        for (elements of myTable)
+            elements.classList.remove('filled-'+slot);
+    }
 }
 
 function flipCards(){
@@ -37,6 +40,7 @@ function flipCards(){
         clearSquares();
         var c1 = deck.shift();
         var c2 = deck.shift();
+        
         fillShape(1, cards[c1]);
         fillShape(2, cards[c2]);
         updateDeckCount();
