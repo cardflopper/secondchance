@@ -8,29 +8,48 @@
     </head>
     <body>
         
-        <button id="reset" onClick="reset()">reset deck</button> &nbsp;
-        <button id="flipPrevious" onClick="flipCards('previous')">&lt;&lt;&lt;</button> &nbsp;
-        <button id="flipForward" onClick="flipCards('forward')">&gt;&gt;&gt;</button> &nbsp;
+            
+            <button onClick="showSecondary()">starting deck</button> &nbsp; <button onClick="showPrimary()">main deck</button>
+            
         
-        <div>deck: <span id="remain">-</span> cards remaining, topOfDeck: <span id="topOfDeck">-</span></div>
-        <h2>A</h2>
-        <table id="card-0">
-            <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-            <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-            <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-            <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-            <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-        </table>
+        <div id="primary">
+            <div>deck: <span id="remain">-</span> cards remaining, topOfDeck: <span id="topOfDeck">-</span></div>
+            <button id="reset" onClick="reset()">new  deck</button> &nbsp;
+            <button id="flipPrevious" onClick="flipCards('previous')">&lt;&lt;&lt;</button> &nbsp;
+            <button id="flipForward" onClick="flipCards('forward')">&gt;&gt;&gt;</button> &nbsp;
+            
+            <h2>A</h2>
+            <table id="card-1">
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+            </table>
 
-        <h2>B</h2>
-        <table id="card-1">
-            <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-            <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-            <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-            <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-            <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-        </table>
+            <h2>B</h2>
+            <table id="card-2">
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+            </table>
+        </div>
 
+        <div id="secondary" class="hide">
+            <div>13 cards total in starting deck</div>
+            <button id="next" onClick="getStartCard()">random</button>
+            <h2>Starting Card #<span id="startingCardNum"></span></h2>
+
+            <table id="startingCard">
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
+            </table>
+        </div>
     </body>
     
     <script src="shapes.js"></script>
