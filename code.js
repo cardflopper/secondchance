@@ -1,8 +1,8 @@
 var deckPointer;
 var deck;
 var cardDrawDirection;
-var card0 = -1;
-var card1 = -1;
+var card0;
+var card1;
 reset();
 
 
@@ -48,8 +48,8 @@ function reset(){
     deckPointer = -1;
     cardDrawDirection = 1;
     deck = [];
-    card0 = -1;
-    card1 = -1;
+    card0 = 'n/a';
+    card1 = 'n/a';
     clearSquares("card0");
     clearSquares("card1");
     clearSquares("startingCard");
@@ -58,16 +58,16 @@ function reset(){
 }
 
 function updateScreen(){
-    //document.getElementById("remain").innerText = 40 - deckPointer;
-    document.getElementById("deckPointer").innerText = deckPointer;
+    document.getElementById("remain").innerText = 39 - deckPointer;
+    //document.getElementById("deckPointer").innerText = deckPointer;
     
     if(deckPointer == -1){
-        card0 = -1;
-        card1 = -1;
+        card0 = "n/a";
+        card1 = "n/a";
     }
     else if(deckPointer == 0){
         card0 = deck[deckPointer];
-        card1 = -1;
+        card1 = 'n/a';
     }
     else if(deckPointer == 1 && cardDrawDirection > 0)
         card1 = deck[deckPointer]
@@ -86,12 +86,12 @@ function updateScreen(){
             card0 = deck[deckPointer-1];
     }
 
-    if(card0 == -1)
+    if(card0 == 'n/a')
         clearSquares('card0');
     else
         fillShape('card0', cards[card0]);
     
-    if(card1 == -1)
+    if(card1 == 'n/a')
         clearSquares('card1');
     else
         fillShape('card1', cards[card1]);
