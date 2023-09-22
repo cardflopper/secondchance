@@ -1,5 +1,8 @@
-var topOfDeck;
+var deckPointer;
 var deck;
+var cardDrawDirection;
+var card0 = -1;
+var card1 = -1;
 reset();
 
 
@@ -23,6 +26,7 @@ function getStartCard(){
 }
 
 function fillShape(section, coords){
+    clearSquares(section);
     for(var i=0; i < coords.length; i++){
         fillSquare(section, coords[i][0],coords[i][1]);
     }
@@ -41,24 +45,59 @@ function startGame(){
 }
 
 function reset(){
-    clearSquares('card-1');
-    clearSquares('card-2');
-    topOfDeck = 0;
+    deckPointer = -1;
+    cardDrawDirection = 1;
     deck = [];
+    card0 = -1;
+    card1 = -1;
+    clearSquares("card0");
+    clearSquares("card1");
+    clearSquares("startingCard");
+    document.getElementById('startingCardNum').innerText="n/a";
     startGame();
 }
 
 function updateScreen(){
-    document.getElementById("remain").innerText = 40 - topOfDeck;
-    document.getElementById("topOfDeck").innerText = topOfDeck;
+    //document.getElementById("remain").innerText = 40 - deckPointer;
+    document.getElementById("deckPointer").innerText = deckPointer;
     
-    clearSquares('card-1');
-    clearSquares('card-2');
-    if(topOfDeck >= 2){
-        fillShape("card-1", cards[deck[topOfDeck-2]]);
-        fillShape("card-2", cards[deck[topOfDeck-1]]);
+    if(deckPointer == -1){
+        card0 = -1;
+        card1 = -1;
+    }
+    else if(deckPointer == 0){
+        card0 = deck[deckPointer];
+        card1 = -1;
+    }
+    else if(deckPointer == 1 && cardDrawDirection > 0)
+        card1 = deck[deckPointer]
+    else if(deckPointer == 39 && cardDrawDirection > 0)
+        card1 = deck[deckPointer];
+    else if(deckPointer%2 == 0){
+        if(cardDrawDirection > 0 ) //we just drew a card to the top slot
+            card0 = deck[deckPointer];
+        else
+            card1 = deck[deckPointer-1];
+    }
+    else if(deckPointer%2 == 1){
+        if(cardDrawDirection > 0 ) //we just drew a card to the top slot
+            card1 = deck[deckPointer];
+        else
+            card0 = deck[deckPointer-1];
     }
 
+    if(card0 == -1)
+        clearSquares('card0');
+    else
+        fillShape('card0', cards[card0]);
+    
+    if(card1 == -1)
+        clearSquares('card1');
+    else
+        fillShape('card1', cards[card1]);
+
+    document.getElementById('card0Num').innerText = card0;
+    document.getElementById('card1Num').innerText = card1;
 }
 
 function clearSquares(section){
@@ -67,20 +106,23 @@ function clearSquares(section){
         elements.classList = '';
 }
 
-function flipCards(direction){ 
-    if (direction == 'forward'){
-        if(topOfDeck == 40)
-            alert('deck is empty!');
-        else
-            topOfDeck +=2;
-    }        
-    else if(direction == 'previous'){
-        if(topOfDeck == 0)
-            alert('already reset deck!');
-        else
-            topOfDeck -= 2;
+function flipCards(n){ 
+    
+    if(deckPointer == -1 && n < 0){  //we have  a full deck (no cards drawn)
+        alert('deck is at beginning!');
+            return;
     }
+    else if(deckPointer == 39 && n > 0){  //we have  an empty deck
+        alert('deck is empty!');
+            return;
+    }
+
+
+    cardDrawDirection = n;
+    deckPointer += n;
+        
     updateScreen();   
+    
 }
 
 

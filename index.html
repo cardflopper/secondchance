@@ -14,13 +14,13 @@
             
         
         <div id="primary">
-            <p>deck: <span id="remain">-</span> cards remaining, topOfDeck: <span id="topOfDeck">-</span></p>
+            <p>deck: <span id="remain">-</span> cards remaining, topOfDeck: <span id="deckPointer">-</span></p>
             <button id="reset" onClick="reset()">new  deck</button> &nbsp;
-            <button id="flipPrevious" onClick="flipCards('previous')">&lt;&lt;&lt;</button> &nbsp;
-            <button id="flipForward" onClick="flipCards('forward')">&gt;&gt;&gt;</button> &nbsp;
+            <button onClick="flipCards(-1)">back</button> &nbsp;
+            <button onClick="flipCards(1)">draw</button> &nbsp;
             
-            <h2>A</h2>
-            <table id="card-1">
+            <h2>A: #<span id="card0Num"></span></h2>
+            <table id="card0">
                 <tr> <td></td> <td></td> <td></td> <td></td> </tr>
                 <tr> <td></td> <td></td> <td></td> <td></td> </tr>
                 <tr> <td></td> <td></td> <td></td> <td></td> </tr>
@@ -28,8 +28,8 @@
                 <tr> <td></td> <td></td> <td></td> <td></td> </tr>
             </table>
 
-            <h2>B</h2>
-            <table id="card-2">
+            <h2>B: #<span id="card1Num"></span></h2>
+            <table id="card1">
                 <tr> <td></td> <td></td> <td></td> <td></td> </tr>
                 <tr> <td></td> <td></td> <td></td> <td></td> </tr>
                 <tr> <td></td> <td></td> <td></td> <td></td> </tr>
