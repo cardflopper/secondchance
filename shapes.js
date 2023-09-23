@@ -71,11 +71,4 @@ startingCards[11] = [ [1,1], [1,2], [1,3], [2,1], [2,3], [3,1], [3,2], [3,3] ];
 startingCards[12] = [ [1,1], [1,2], [2,2], [2,3], [3,1], [3,2], [4,2], [4,3] ];
 
 
-const parser = new DOMParser();
-
-var elementString = "<table> <tr> <td>x</td> <td>x</td> <td>x</td> <td>x</td> </tr>  <tr> <td></td> <td></td> <td></td> <td></td> </tr>  <tr> <td></td> <td></td> <td></td> <td></td> </tr> <tr> <td></td> <td></td> <td></td> <td></td> </tr> <tr> <td></td> <td></td> <td></td> <td></td> </tr> </table>"; 
-elementString = "<div>TEST</div>";
-
-
-
                 

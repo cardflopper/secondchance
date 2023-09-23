@@ -62,11 +62,12 @@ function fillSquare(section, row,col){
 }
 
 function startGame(){
+    alert('hello');
     for(var i=0; i< cards.length; i++){
         deck.push(i);
     }
     deck = shuffle(deck);
-    alert(deck);
+    
 }
 
 function reset(){
@@ -84,10 +85,12 @@ function reset(){
 
 
 function updateScreen(){
+    alert(deck);
     document.getElementById("remain").innerText = 38 - deckPointer;
 
     document.getElementById("deckPointer").innerText = deckPointer;    //for debugging
     append(deck[deckPointer]);
+}
 
 function updateScreen_bak(){
     document.getElementById("remain").innerText = 38 - deckPointer;
@@ -114,18 +117,9 @@ function updateScreen_bak(){
     else
         fillShape('card1', cards[card1]);
 
-    /*if(cardDrawDirection > 0){
-        fadeIn('card1');
-    }*/
 
     document.getElementById('card0Num').innerText = card0;
     document.getElementById('card1Num').innerText = card1;
-}
-
-function clearSquares(section){
-    var myTable = document.getElementById(section).getElementsByTagName("*");
-    for (elements of myTable)
-        elements.classList = '';
 }
 
 function flipCards(n){ 
@@ -165,3 +159,10 @@ function shuffle(array) {
   
     return array;
   }
+
+  /*
+  function clearSquares(section){
+    var myTable = document.getElementById(section).getElementsByTagName("*");
+    for (elements of myTable)
+        elements.classList = '';
+}*/
