@@ -15,28 +15,20 @@
         
         <div id="primary">
             <p>deck: <span id="remain">-</span> cards remaining</p>
-            <!-- <p>topOfDeck: <span id="deckPointer">-</span></p> -->
-            <button id="reset" onClick="reset()">new  deck</button> &nbsp;
+            
+            <!-- debugging -->
+            <p>deckPointer: <span id="deckPointer">-</span></p>
+            
+            <button onClick="append()">append</button> &nbsp;
+            <button onClick="fadeIn('card0')">fade</button> &nbsp;
+            <button onClick="reset()">new  deck</button> &nbsp;
             <button onClick="flipCards(-1)">back</button> &nbsp;
             <button onClick="flipCards(1)">draw</button> &nbsp;
             
-            <h2>A: #<span id="card0Num"></span></h2>
-            <table id="card0">
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-            </table>
-
-            <h2>B: #<span id="card1Num"></span></h2>
-            <table id="card1">
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-            </table>
+            <!-- <h2>A: #<span id="card0Num"></span></h2> -->
+            
+            <!-- <h2>B: #<span id="card1Num"></span></h2> -->
+            
         </div>
 
         <div id="secondary" class="hide">

@@ -13,14 +13,21 @@ td{
     width: 45px;
     height: 45px;
 }
-.card0{
+.filled{
     border:2px solid black;
     background-image:linear-gradient(yellow,red);
+
 }
-.card1{
-    border:2px solid black;
-    background-image:linear-gradient(orange,red);
-}
+
+@keyframes fadeIn {
+    from {
+      opacity:0%;
+    }
+    to {
+      opacity:100%;
+    }
+  }
+
 
 .startingCard{
     border:2px solid black;
