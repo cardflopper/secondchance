@@ -37,10 +37,10 @@ table{
 }
 
 .slideR2L{
-    animation: next .5s linear;
+    animation: next 1s linear;
 }
 .slideL2R{
-    animation: prev .5s linear;
+    animation: prev 1s linear;
 }
 
 
