@@ -12,7 +12,6 @@ function reset(){
     deckPointer = -1;
     cardDrawDirection = 0;
     deck = [];
-    numCardsDisplayed = 0;
     startGame();
 }
 
@@ -93,6 +92,13 @@ function fillSquare(section, row,col){
 
 function updateScreen(){
 
+    //make sure these two lines  are at the start of this function
+    document.getElementById("remain").innerText = deckPointer == -1 ? 40 : 40  - (deckPointer+1) ;
+    
+    //debugging
+    //document.getElementById("deckPointer").innerText = deckPointer;
+
+
 
     if(cardDrawDirection ==0){
         return;
@@ -117,13 +123,8 @@ function updateScreen(){
 
     }
 
-    //watch out for this, if it's at the beginnig of the function it will be behind the actual counts
-
-    document.getElementById("remain").innerText = deckPointer == -1 ? 40 : 40  - (deckPointer+1) ;
-
     /*
-    //for debugging
-    document.getElementById("deckPointer").innerText = deckPointer;
+    // debugging: watch out for this reporter, if it's at the beginnig of the function it will be behind the actual counts
     document.getElementById("numCardsDisplayed").innerText = document.getElementById('cardsDisplay').children.length;    //for debugging
     */
     
