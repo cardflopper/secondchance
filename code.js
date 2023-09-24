@@ -1,15 +1,49 @@
 var deckPointer;
 var deck;
 var cardDrawDirection;
-var card0;
-var card1;
+var numCardsDisplayed;
 reset();
 
+function reset(){
+    const myNode = document.getElementById("cardsDisplay");
+    while (myNode.firstChild) {
+      myNode.removeChild(myNode.lastChild);
+    }
+    deckPointer = -1;
+    cardDrawDirection = 0;
+    deck = [];
+    numCardsDisplayed = 0;
+    startGame();
+}
 
-function append(n){
+function startGame(){
+    for(var i=0; i< cards.length; i++){
+        deck.push(i);
+    }
+    deck = shuffle(deck);
+    updateScreen();
+}
+
+
+
+
+
+function addCardElement(n, direction="append"){
     var c = createCard();
     c.setAttribute('id','card'+n);
-    document.getElementById('primary').append(c);
+    c.classList.add('card');
+    
+    var div = document.createElement('div');
+    
+    div.append(c);
+    if(direction=='prepend'){ //backward draw
+        div.classList.add('slideDown', 'singleCardContainer');            
+        document.getElementById('cardsDisplay').prepend(div);
+    }
+    else{ //forward draw
+        div.classList.add('slideUp', 'singleCardContainer');            
+        document.getElementById('cardsDisplay').append(div);
+    }
     fillShape('card'+n, cards[n]);
 }
 
@@ -25,11 +59,6 @@ function createCard(){
     }
     return cardElement;
 }
-
-function fadeIn(section){
-    document.getElementById(section).style.animation = "fadeIn 4s";
-}
-
 
 function showPrimary(){
     document.getElementById('primary').classList.remove('hide');
@@ -51,7 +80,6 @@ function getStartCard(){
 }
 
 function fillShape(section, coords){
-    clearSquares(section);
     for(var i=0; i < coords.length; i++){
         fillSquare(section, coords[i][0],coords[i][1]);
     }
@@ -61,74 +89,51 @@ function fillSquare(section, row,col){
     document.getElementById(section).querySelector("tr:nth-child("+row+")").querySelector("td:nth-child("+col+")").classList.add('filled');
 }
 
-function startGame(){
-    alert('hello');
-    for(var i=0; i< cards.length; i++){
-        deck.push(i);
-    }
-    deck = shuffle(deck);
-    
-}
-
-function reset(){
-    deckPointer = -1;
-    cardDrawDirection = 1;
-    deck = [];
-    card0 = 'n/a';
-    card1 = 'n/a';
-    clearSquares("card0");
-    clearSquares("card1");
-    clearSquares("startingCard");
-    document.getElementById('startingCardNum').innerText="n/a";
-    startGame();
-}
 
 
 function updateScreen(){
-    alert(deck);
-    document.getElementById("remain").innerText = 38 - deckPointer;
 
-    document.getElementById("deckPointer").innerText = deckPointer;    //for debugging
-    append(deck[deckPointer]);
-}
 
-function updateScreen_bak(){
-    document.getElementById("remain").innerText = 38 - deckPointer;
-    
+    if(cardDrawDirection ==0){
+        return;
+    }
+    else if(cardDrawDirection > 0 ){
+        if(deckPointer > 1){
+            var displayedCards = document.getElementById("cardsDisplay");
+            if (displayedCards.hasChildNodes())
+                displayedCards.removeChild(displayedCards.children[0]);
+        }
+        addCardElement(deck[deckPointer]);
+    }
+    else{
+        var displayedCards = document.getElementById("cardsDisplay");
+        if (displayedCards.hasChildNodes()){
+            var last = displayedCards.children.length-1;
+            displayedCards.removeChild(displayedCards.children[last]);
+        }
+                
+        if(deckPointer > 0)
+        addCardElement(deck[deckPointer-1],'prepend');
+
+    }
+
+    //watch out for this, if it's at the beginnig of the function it will be behind the actual counts
+
+    document.getElementById("remain").innerText = deckPointer == -1 ? 40 : 40  - (deckPointer+1) ;
+
+    /*
     //for debugging
     document.getElementById("deckPointer").innerText = deckPointer;
+    document.getElementById("numCardsDisplayed").innerText = document.getElementById('cardsDisplay').children.length;    //for debugging
+    */
     
-    if(deckPointer == -1){
-        card0 = "n/a";
-        card1 = "n/a";
-    }
-    else{       
-        card0 = deck[deckPointer];
-        card1 = deck[deckPointer+1];
-    }
-
-    if(card0 == 'n/a')
-        clearSquares('card0');
-    else
-        fillShape('card0', cards[card0]);
-    
-    if(card1 == 'n/a')
-        clearSquares('card1');
-    else
-        fillShape('card1', cards[card1]);
-
-
-    document.getElementById('card0Num').innerText = card0;
-    document.getElementById('card1Num').innerText = card1;
-}
-
-function flipCards(n){ 
+}function flipCards(n){ 
     
     if(deckPointer == -1 && n < 0){  //we have  a full deck (no cards drawn)
         alert('deck is at beginning!');
             return;
     }
-    else if(deckPointer == 38 && n > 0){  //we have  an empty deck
+    else if(deckPointer == 39 && n > 0){  //we have  an empty deck
         alert('deck is empty!');
             return;
     }
@@ -160,9 +165,3 @@ function shuffle(array) {
     return array;
   }
 
-  /*
-  function clearSquares(section){
-    var myTable = document.getElementById(section).getElementsByTagName("*");
-    for (elements of myTable)
-        elements.classList = '';
-}*/

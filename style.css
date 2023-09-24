@@ -1,32 +1,59 @@
 html{text-align:center;}
 button{font-size:1.75em}
 
-table{
-    border:1px solid black;
-    margin-left: auto;
-    margin-right: auto;
-    border-collapse: collapse;
-}
-
-
 td{
     width: 45px;
     height: 45px;
+    background-color:white;
 }
 .filled{
     border:2px solid black;
     background-image:linear-gradient(yellow,red);
 
 }
+.card{
+    margin:auto;
+    border:1px solid black;
+    border-collapse: collapse;
+    
+}
 
-@keyframes fadeIn {
+.singleCardContainer{
+    padding-top:10px;
+}
+
+.slideUp{
+    animation: up .5s linear;
+}
+.slideDown{
+    animation: down .5s linear;
+}
+
+
+@keyframes up {
     from {
       opacity:0%;
+      transform: translateX(25%);
     }
     to {
       opacity:100%;
+      transform: translateX(0%);
     }
   }
+
+  @keyframes down {
+    from {
+      opacity:0%;
+      transform: translateX(-25%);
+    }
+    to {
+      opacity:100%;
+      transform: translateX(0%);
+    }
+  }
+
+
+
 
 
 .startingCard{
