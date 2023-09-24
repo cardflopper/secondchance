@@ -6,31 +6,45 @@ td{
     height: 45px;
     background-color:white;
 }
+
+
+.mainDeck .filled{
+    background-image:linear-gradient(yellow,red);
+}
+.startingDeck .filled{
+    background-color:plum;
+}
 .filled{
     border:2px solid black;
-    background-image:linear-gradient(yellow,red);
-
 }
-.card{
-    margin:auto;
-    border:1px solid black;
+
+
+table{
     border-collapse: collapse;
     
 }
 
 .singleCardContainer{
-    padding-top:10px;
+    padding:10px;
+    margin:auto;
+    margin-top:20px;
+    width:200px;
+    border:1px solid black;
+}
+.singleCardContainer p{
+    margin-top:0;
+
 }
 
-.slideUp{
-    animation: up .5s linear;
+.slideR2L{
+    animation: next .5s linear;
 }
-.slideDown{
-    animation: down .5s linear;
+.slideL2R{
+    animation: prev .5s linear;
 }
 
 
-@keyframes up {
+@keyframes next {
     from {
       opacity:0%;
       transform: translateX(25%);
@@ -41,7 +55,7 @@ td{
     }
   }
 
-  @keyframes down {
+  @keyframes prev {
     from {
       opacity:0%;
       transform: translateX(-25%);
@@ -51,16 +65,6 @@ td{
       transform: translateX(0%);
     }
   }
-
-
-
-
-
-.startingCard{
-    border:2px solid black;
-    background-color:purple;
-}
-
 
 .hide{
     display:none;

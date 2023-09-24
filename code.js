@@ -26,37 +26,68 @@ function startGame(){
 
 
 
-
-function addCardElement(n, direction="append"){
-    var c = createCard();
-    c.setAttribute('id','card'+n);
-    c.classList.add('card');
-    
+function generateCardElement(){
+    var c = createTableElement();
     var div = document.createElement('div');
-    
     div.append(c);
+    div.classList.add('singleCardContainer');
+    return div;
+}
+
+
+function getStartCard(){
+    var myNode = document.getElementById('startCardsDisplay')
+    
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.lastChild);
+    }
+    
+    var n = Math.floor(Math.random()*13); //13 cards in the start deck
+
+    var c = generateCardElement();
+    c.setAttribute('id','startCard'+n);
+    var p = document.createElement('p');
+    p.innerText="Starting Card #"+n;
+    c.prepend(p);
+    c.classList.add('startingDeck','slideR2L');
+    
+    document.getElementById('startCardsDisplay').append(c);
+
+    fillShape('startCard'+n, startingCards[n]);
+    
+    
+}
+
+function addDeckCardElement(n, direction="append"){
+    var c = generateCardElement();
+    c.setAttribute('id','card'+n);
+    var p = document.createElement('p');
+    p.innerText="Card #"+n;
+    c.prepend(p);
+   
+    c.classList.add('mainDeck');
     if(direction=='prepend'){ //backward draw
-        div.classList.add('slideDown', 'singleCardContainer');            
-        document.getElementById('cardsDisplay').prepend(div);
+        c.classList.add('slideL2R');            
+        document.getElementById('cardsDisplay').prepend(c);
     }
     else{ //forward draw
-        div.classList.add('slideUp', 'singleCardContainer');            
-        document.getElementById('cardsDisplay').append(div);
+        c.classList.add('slideR2L');            
+        document.getElementById('cardsDisplay').append(c);
     }
     fillShape('card'+n, cards[n]);
 }
 
-function createCard(){
-    var cardElement = document.createElement('table');
+function createTableElement(){
+    var table = document.createElement('table');
     for(row=0; row<5; row++){
         var tr = document.createElement('tr');
         for(col=0; col<4; col++){
             var td = document.createElement('td');
             tr.appendChild(td);
         }
-        cardElement.append(tr);
+        table.append(tr);
     }
-    return cardElement;
+    return table;
 }
 
 function showPrimary(){
@@ -71,12 +102,7 @@ function showSecondary(){
 
 
 
-function getStartCard(){
-    clearSquares('startingCard');
-    var n = Math.floor(Math.random()*13); //13 cards in the start deck
-    fillShape('startingCard',startingCards[n]);
-    document.getElementById('startingCardNum').innerText=n;
-}
+
 
 function fillShape(section, coords){
     for(var i=0; i < coords.length; i++){
@@ -109,7 +135,7 @@ function updateScreen(){
             if (displayedCards.hasChildNodes())
                 displayedCards.removeChild(displayedCards.children[0]);
         }
-        addCardElement(deck[deckPointer]);
+        addDeckCardElement(deck[deckPointer]);
     }
     else{
         var displayedCards = document.getElementById("cardsDisplay");
@@ -119,7 +145,7 @@ function updateScreen(){
         }
                 
         if(deckPointer > 0)
-        addCardElement(deck[deckPointer-1],'prepend');
+        addDeckCardElement(deck[deckPointer-1],'prepend');
 
     }
 

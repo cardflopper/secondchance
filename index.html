@@ -10,7 +10,7 @@
         
             
             <button onClick="showPrimary()">main</button> &nbsp;
-            <button onClick="showSecondary()">setup card</button> 
+            <button onClick="showSecondary()">setup</button> 
             
         
         <div id="primary">
@@ -41,16 +41,10 @@
 
         <div id="secondary" class="hide">
             <p>13 cards total in starting deck</p>
-            <button id="next" onClick="getStartCard()">random</button>
-            <h2>Starting Card #<span id="startingCardNum"></span></h2>
+            <button onClick="getStartCard()">random</button>
+            <div id="startCardsDisplay">
 
-            <table id="startingCard">
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-                <tr> <td></td> <td></td> <td></td> <td></td> </tr>
-            </table>
+            </div>
         </div>
     </body>
     
