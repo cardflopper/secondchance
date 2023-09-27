@@ -1,6 +1,12 @@
 html{text-align:center;}
 button{font-size:1.75em}
 
+
+
+.hide{
+  display:none;
+}
+
 td{
     width: 45px;
     height: 45px;
@@ -18,6 +24,18 @@ td{
     border:2px solid black;
 }
 
+#startCardsDisplay,#cardsDisplay{
+  margin-top:20px;
+  overflow: hidden;
+  height:594px;
+}
+
+
+#slider{
+  xbackground-color:lightblue;
+}
+
+.backward{margin-top:-280px;}
 
 table{
     border-collapse: collapse;
@@ -27,45 +45,52 @@ table{
 .singleCardContainer{
     padding:10px;
     margin:auto;
-    margin-top:20px;
+    margin-top:0px;
+    height:265px;
     width:200px;
     border:1px solid black;
+    margin-bottom:10px;
 }
 .singleCardContainer p{
     margin-top:0;
 
 }
 
-.slideR2L{
-    animation: next 1s linear;
-}
-.slideL2R{
-    animation: prev 1s linear;
-}
 
-
-@keyframes next {
-    from {
-      opacity:0%;
-      transform: translateX(25%);
-    }
-    to {
-      opacity:100%;
-      transform: translateX(0%);
-    }
+.drawForward{
+  animation:up 0.5s forwards;
+}
+@keyframes up {
+  from {
+    margin-top:0px;
   }
-
-  @keyframes prev {
-    from {
-      opacity:0%;
-      transform: translateX(-25%);
-    }
-    to {
-      opacity:100%;
-      transform: translateX(0%);
-    }
+  to {
+    margin-top:-287px;
   }
-
-.hide{
-    display:none;
 }
+
+.drawBackward{
+  animation:down 0.5s forwards;
+}
+@keyframes down{
+  from {
+    margin-top:-287px;
+  }
+  to {
+    margin-top:0px;
+  }
+}
+
+.slide{
+  animation:righttoleft 0.5s forwards;
+}
+@keyframes righttoleft {
+  from {
+    transform: translateX(25%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+

@@ -1,17 +1,25 @@
 var deckPointer;
 var deck;
 var cardDrawDirection;
+var cardDrawDirection_prev;
 var numCardsDisplayed;
 reset();
 
 function reset(){
-    const myNode = document.getElementById("cardsDisplay");
+    const myNode = document.getElementById("slider");
     while (myNode.firstChild) {
       myNode.removeChild(myNode.lastChild);
     }
     deckPointer = -1;
     cardDrawDirection = 0;
+    cardDrawDirection_prev = 0;
     deck = [];
+
+    document.getElementById('slider').remove();
+    var slider = document.createElement('div');
+    slider.setAttribute('id','slider');
+    document.getElementById('cardsDisplay').append(slider);
+
     startGame();
 }
 
@@ -49,7 +57,7 @@ function getStartCard(){
     var p = document.createElement('p');
     p.innerText="Starting Card #"+n;
     c.prepend(p);
-    c.classList.add('startingDeck','slideR2L');
+    c.classList.add('startingDeck','slide');
     
     document.getElementById('startCardsDisplay').append(c);
 
@@ -66,14 +74,13 @@ function addDeckCardElement(n, direction="append"){
     c.prepend(p);
    
     c.classList.add('mainDeck');
-    if(direction=='prepend'){ //backward draw
-        c.classList.add('slideL2R');            
-        document.getElementById('cardsDisplay').prepend(c);
-    }
-    else{ //forward draw
-        c.classList.add('slideR2L');            
-        document.getElementById('cardsDisplay').append(c);
-    }
+    
+    if(direction=='prepend') //backward draw
+        document.getElementById('slider').prepend(c);
+    else //forward draw
+        document.getElementById('slider').append(c);
+    
+    
     fillShape('card'+n, cards[n]);
 }
 
@@ -126,35 +133,57 @@ function updateScreen(){
 
 
 
-    if(cardDrawDirection ==0){
+    if(cardDrawDirection == 0){
         return;
     }
-    else if(cardDrawDirection > 0 ){
-        if(deckPointer > 1){
-            var displayedCards = document.getElementById("cardsDisplay");
-            if (displayedCards.hasChildNodes())
-                displayedCards.removeChild(displayedCards.children[0]);
+    
+    document.getElementById('slider').remove();
+    var slider = document.createElement('div');
+    slider.setAttribute('id','slider');
+    document.getElementById('cardsDisplay').append(slider);
+    
+    if(cardDrawDirection > 0){
+
+        if(deckPointer == 0)
+            addDeckCardElement(deck[deckPointer]);
+        else if(deckPointer == 1){
+            addDeckCardElement(deck[0]);
+            addDeckCardElement(deck[1]);
+            
+           
         }
-        addDeckCardElement(deck[deckPointer]);
+        else{
+            addDeckCardElement(deck[deckPointer-2]);
+            addDeckCardElement(deck[deckPointer-1]);
+            addDeckCardElement(deck[deckPointer]);
+        }
+        if(deckPointer > 1){
+            slider.classList.add("drawForward");
+        }
+        
     }
     else{
-        var displayedCards = document.getElementById("cardsDisplay");
-        if (displayedCards.hasChildNodes()){
-            var last = displayedCards.children.length-1;
-            displayedCards.removeChild(displayedCards.children[last]);
+        if(deckPointer == 0){
+            addDeckCardElement(deck[0]);
+            if(cardDrawDirection_prev != -1 )
+                addDeckCardElement(deck[1]);
         }
-                
-        if(deckPointer > 0)
-        addDeckCardElement(deck[deckPointer-1],'prepend');
-
+        if(deckPointer > 0){
+            //slider.classList.add('backward');
+            addDeckCardElement(deck[deckPointer-1]);
+            addDeckCardElement(deck[deckPointer]);
+            addDeckCardElement(deck[deckPointer+1]);
+            slider.classList.add("drawBackward");
+        }
     }
 
     /*
     // debugging: watch out for this reporter, if it's at the beginnig of the function it will be behind the actual counts
-    document.getElementById("numCardsDisplayed").innerText = document.getElementById('cardsDisplay').children.length;    //for debugging
+    document.getElementById("numCardsDisplayed").innerText = document.getElementById('slider').children.length;    //for debugging
     */
     
-}function flipCards(n){ 
+}
+function flipCards(n){ 
     
     if(deckPointer == -1 && n < 0){  //we have  a full deck (no cards drawn)
         alert('deck is at beginning!');
@@ -166,6 +195,7 @@ function updateScreen(){
     }
     
     cardDrawDirection = n;
+    cardDrawDirection_prev = cardDrawDirection;
     deckPointer += n;
     updateScreen();   
     
