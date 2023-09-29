@@ -54,9 +54,6 @@ function getStartCard(){
 
     var c = generateCardElement();
     c.setAttribute('id','startCard'+n);
-    var p = document.createElement('p');
-    p.innerText="Starting Card #"+n;
-    c.prepend(p);
     c.classList.add('startingDeck','slide');
     
     document.getElementById('startCardsDisplay').append(c);
@@ -69,9 +66,9 @@ function getStartCard(){
 function addDeckCardElement(n, direction="append"){
     var c = generateCardElement();
     c.setAttribute('id','card'+n);
-    var p = document.createElement('p');
-    p.innerText="Card #"+n;
-    c.prepend(p);
+    //var p = document.createElement('p');
+    //p.innerText="Card #"+n;
+    //c.prepend(p);
    
     c.classList.add('mainDeck');
     

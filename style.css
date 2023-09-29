@@ -11,31 +11,40 @@ td{
     width: 45px;
     height: 45px;
     background-color:white;
+    border:2px solid black;
 }
 
 
 .mainDeck .filled{
     background-image:linear-gradient(yellow,red);
+    xbackground-color:peachpuff;
 }
 .startingDeck .filled{
     background-color:plum;
 }
 .filled{
     border:2px solid black;
+    
 }
 
-#startCardsDisplay,#cardsDisplay{
+#cardsDisplay{
   margin-top:20px;
   overflow: hidden;
-  height:594px;
+  height:522px;
+  xborder:1px solid black;
+}
+
+#startCardsDisplay{
+  margin-top:20px
+
 }
 
 
 #slider{
-  xbackground-color:lightblue;
+  xbackground-color:lightblue; 
 }
 
-.backward{margin-top:-280px;}
+.backward{margin-top:-262px;}
 
 table{
     border-collapse: collapse;
@@ -43,13 +52,17 @@ table{
 }
 
 .singleCardContainer{
+    
+    border-radius: 10px;
     padding:10px;
     margin:auto;
     margin-top:0px;
-    height:265px;
-    width:200px;
-    border:1px solid black;
     margin-bottom:10px;
+    height:230px;
+    width:197px;
+    border:1px solid black;
+    background-color:grey;
+    
 }
 .singleCardContainer p{
     margin-top:0;
@@ -65,7 +78,7 @@ table{
     margin-top:0px;
   }
   to {
-    margin-top:-287px;
+    margin-top:-262px;
   }
 }
 
@@ -74,7 +87,7 @@ table{
 }
 @keyframes down{
   from {
-    margin-top:-287px;
+    margin-top:-262px;
   }
   to {
     margin-top:0px;
