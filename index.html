@@ -10,11 +10,12 @@
         
             
             <button onClick="showPrimary()">main</button> &nbsp;
-            <button onClick="showSecondary()">setup</button> 
+            <button onClick="showSecond()">setup</button> &nbsp;
+            <button onClick="showThird()">list</button> 
             
         
         <div id="primary">
-            <p>deck: <span id="remain">-</span> cards remaining</p>
+            <p>deck: <span id="remainPrimary">-</span> cards remaining</p>
             
             <!--
                 BEGIN debugging 
@@ -30,7 +31,7 @@
             <button onClick="flipCards(-1)">back</button> &nbsp;
             <button onClick="flipCards(1)">draw</button> &nbsp;
             
-            <div id="cardsDisplay">
+            <div id="mainCardsDisplay">
                 <div id="slider">
                     
                 </div>
@@ -41,13 +42,21 @@
             
         </div>
 
-        <div id="secondary" class="hide">
+        <div id="second" class="hide">
             <p>13 cards total in starting deck</p>
-            <button onClick="getStartCard()">random</button>
+            <button onClick="showStartCard(6)">random</button>
             <div id="startCardsDisplay">
 
             </div>
         </div>
+
+        <div id="third" class="hide">
+            <p>deck: <span id="remainThird">-</span> cards remaining</p>
+            <div id="deckRemainderDisplay">
+
+            </div>
+        </div>
+
     </body>
     
     <script src="shapes.js"></script>

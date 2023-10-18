@@ -14,12 +14,14 @@ td{
     border:2px solid black;
 }
 
-
-.mainDeck .filled{
-    background-image:linear-gradient(yellow,red);
-    xbackground-color:peachpuff;
+#remainingCardsDisplay .filled{
+  background-color:cornflowerblue;
 }
-.startingDeck .filled{
+
+#mainCardsDisplay .filled{
+    background-image:linear-gradient(yellow,red);
+}
+#startCardsDisplay .filled{
     background-color:plum;
 }
 .filled{
@@ -31,7 +33,6 @@ td{
   margin-top:20px;
   overflow: hidden;
   height:522px;
-  xborder:1px solid black;
 }
 
 #startCardsDisplay{
@@ -39,12 +40,7 @@ td{
 
 }
 
-
-#slider{
-  xbackground-color:lightblue; 
-}
-
-.backward{margin-top:-262px;}
+.deleteme_backward{margin-top:-262px;}
 
 table{
     border-collapse: collapse;
@@ -69,6 +65,9 @@ table{
 
 }
 
+.lockView{
+  margin-top:-262px;
+}
 
 .drawForward{
   animation:up 0.5s forwards;

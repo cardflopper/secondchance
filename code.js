@@ -6,10 +6,7 @@ var numCardsDisplayed;
 reset();
 
 function reset(){
-    const myNode = document.getElementById("slider");
-    while (myNode.firstChild) {
-      myNode.removeChild(myNode.lastChild);
-    }
+    removeAllChildNodes(document.getElementById("slider"));
     deckPointer = -1;
     cardDrawDirection = 0;
     cardDrawDirection_prev = 0;
@@ -18,7 +15,7 @@ function reset(){
     document.getElementById('slider').remove();
     var slider = document.createElement('div');
     slider.setAttribute('id','slider');
-    document.getElementById('cardsDisplay').append(slider);
+    document.getElementById('mainCardsDisplay').append(slider);
 
     startGame();
 }
@@ -27,58 +24,59 @@ function startGame(){
     for(var i=0; i< cards.length; i++){
         deck.push(i);
     }
-    deck = shuffle(deck);
+    shuffle(deck);
     updateScreen();
 }
 
 
 
 
-function generateCardElement(){
+function generateCardElement(id){
     var c = createTableElement();
     var div = document.createElement('div');
     div.append(c);
     div.classList.add('singleCardContainer');
+    div.setAttribute('id',id);
     return div;
 }
 
 
-function getStartCard(){
-    var myNode = document.getElementById('startCardsDisplay')
+function showStartCard(amount=1){
+
+    var parentNode = document.getElementById('startCardsDisplay')
+    removeAllChildNodes(parentNode);
     
-    while (myNode.firstChild) {
-        myNode.removeChild(myNode.lastChild);
+    var startCardsArray = [0,1,2,3,4,5,6,7,8,9,10,11,12];
+    shuffle(startCardsArray);
+    
+    
+    for(var i = 0; i < amount ; i++){
+        var c = generateCardElement();
+        var cardId = 'startCard'+startCardsArray[i]
+        var coords = startingCards[startCardsArray[i]]
+
+        c.setAttribute('id', cardId);
+        c.classList.add('slide');
+
+        parentNode.append(c);
+        fillShape(cardId, coords);
     }
-    
-    var n = Math.floor(Math.random()*13); //13 cards in the start deck
-
-    var c = generateCardElement();
-    c.setAttribute('id','startCard'+n);
-    c.classList.add('startingDeck','slide');
-    
-    document.getElementById('startCardsDisplay').append(c);
-
-    fillShape('startCard'+n, startingCards[n]);
-    
     
 }
 
-function addDeckCardElement(n, direction="append"){
+function addDeckCardElement(n, parentId, direction="append"){
     var c = generateCardElement();
-    c.setAttribute('id','card'+n);
-    //var p = document.createElement('p');
-    //p.innerText="Card #"+n;
-    //c.prepend(p);
+    var cardId = parentId + n;
+    c.setAttribute('id',cardId);
    
-    c.classList.add('mainDeck');
-    
     if(direction=='prepend') //backward draw
-        document.getElementById('slider').prepend(c);
+        document.getElementById(parentId).prepend(c);
     else //forward draw
-        document.getElementById('slider').append(c);
+        document.getElementById(parentId).append(c);
     
+    var coords = cards[n];
     
-    fillShape('card'+n, cards[n]);
+    fillShape(cardId, coords);
 }
 
 function createTableElement(){
@@ -94,16 +92,47 @@ function createTableElement(){
     return table;
 }
 
+
 function showPrimary(){
     document.getElementById('primary').classList.remove('hide');
-    document.getElementById('secondary').classList.add('hide');
+    document.getElementById('second').classList.add('hide');
+    document.getElementById('third').classList.add('hide');
+    //prevents reanimation when switching back to Primary
+    var slider = document.getElementById('slider'); 
+    slider.classList = "";
+    
+    //correctly sets the cards in view when switching back to Primary
+    if(cardDrawDirection > 0 && deckPointer > 1 && slider.children.length > 2)
+        slider.classList.add( "lockView");
 }
 
-function showSecondary(){
+function showSecond(){
     document.getElementById('primary').classList.add('hide');
-    document.getElementById('secondary').classList.remove('hide');
+    document.getElementById('second').classList.remove('hide');
+    document.getElementById('third').classList.add('hide');
 }
 
+
+function showThird(){
+    document.getElementById('primary').classList.add('hide');
+    document.getElementById('second').classList.add('hide');
+    document.getElementById('third').classList.remove('hide');
+
+    removeAllChildNodes(document.getElementById("remainingCardsDisplay"));
+
+    var remain = deck.slice(deckPointer+1)
+    document.getElementById("remainThird").innerText = remain.length;
+    remain.sort((a,b) => a-b);
+    for(var i=0; i < remain.length; i++)
+        addDeckCardElement(remain[i],"remainingCardsDisplay");
+    
+}
+
+function removeAllChildNodes(pNode) {
+    while (pNode.firstChild) {
+        pNode.removeChild(pNode.lastChild);
+    }
+}
 
 
 
@@ -123,7 +152,7 @@ function fillSquare(section, row,col){
 function updateScreen(){
 
     //make sure these two lines  are at the start of this function
-    document.getElementById("remain").innerText = deckPointer == -1 ? 40 : 40  - (deckPointer+1) ;
+    document.getElementById("remainPrimary").innerText = deckPointer == -1 ? 40 : 40  - (deckPointer+1);
     
     //debugging
     //document.getElementById("deckPointer").innerText = deckPointer;
@@ -137,23 +166,22 @@ function updateScreen(){
     document.getElementById('slider').remove();
     var slider = document.createElement('div');
     slider.setAttribute('id','slider');
-    document.getElementById('cardsDisplay').append(slider);
+    document.getElementById('mainCardsDisplay').append(slider);
     
     if(cardDrawDirection > 0){
 
         if(deckPointer == 0)
-            addDeckCardElement(deck[deckPointer]);
+            addDeckCardElement(deck[deckPointer],'slider');
         else if(deckPointer == 1){
-            addDeckCardElement(deck[0]);
-            addDeckCardElement(deck[1]);
-            
-           
+            addDeckCardElement(deck[0],'slider');
+            addDeckCardElement(deck[1],'slider');
         }
         else{
-            addDeckCardElement(deck[deckPointer-2]);
-            addDeckCardElement(deck[deckPointer-1]);
-            addDeckCardElement(deck[deckPointer]);
+            addDeckCardElement(deck[deckPointer-2],'slider');
+            addDeckCardElement(deck[deckPointer-1],'slider');
+            addDeckCardElement(deck[deckPointer],'slider');
         }
+        
         if(deckPointer > 1){
             slider.classList.add("drawForward");
         }
@@ -161,15 +189,15 @@ function updateScreen(){
     }
     else{
         if(deckPointer == 0){
-            addDeckCardElement(deck[0]);
+            addDeckCardElement(deck[0],'slider');
             if(cardDrawDirection_prev != -1 )
-                addDeckCardElement(deck[1]);
+                addDeckCardElement(deck[1],'slider');
         }
         if(deckPointer > 0){
             //slider.classList.add('backward');
-            addDeckCardElement(deck[deckPointer-1]);
-            addDeckCardElement(deck[deckPointer]);
-            addDeckCardElement(deck[deckPointer+1]);
+            addDeckCardElement(deck[deckPointer-1],'slider');
+            addDeckCardElement(deck[deckPointer],'slider');
+            addDeckCardElement(deck[deckPointer+1],'slider');
             slider.classList.add("drawBackward");
         }
     }
