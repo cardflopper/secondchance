@@ -124,7 +124,7 @@ function showThird(){
     document.getElementById("remainThird").innerText = remain.length;
     remain.sort((a,b) => a-b);
     for(var i=0; i < remain.length; i++)
-        addDeckCardElement(remain[i],"remainingCardsDisplay");
+        addDeckCardElement(remain[i],'remainingCardsDisplay');
     
 }
 
@@ -133,8 +133,6 @@ function removeAllChildNodes(pNode) {
         pNode.removeChild(pNode.lastChild);
     }
 }
-
-
 
 
 function fillShape(section, coords){

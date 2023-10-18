@@ -18,6 +18,7 @@ td{
   background-color:cornflowerblue;
 }
 
+
 #mainCardsDisplay .filled{
     background-image:linear-gradient(yellow,red);
 }
@@ -29,7 +30,7 @@ td{
     
 }
 
-#cardsDisplay{
+#mainCardsDisplay{
   margin-top:20px;
   overflow: hidden;
   height:522px;
